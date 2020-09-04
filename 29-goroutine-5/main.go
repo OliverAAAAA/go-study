@@ -61,7 +61,7 @@ func main() {
 		wg.Add(1)
 		go read()
 	}
-	
+
 	//线程安全的map
 	for i := 0; i < 20; i++ {
 		wg.Add(1)
