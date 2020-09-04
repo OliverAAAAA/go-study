@@ -53,4 +53,8 @@ func main() {
 	fmt.Println(KB,MB,GB,TB,PB)
 	fmt.Println(math.Pow(2,10))
 	fmt.Println(m1,m2,m3,m4,m5,m6)
+
+	c := b
+	c = 3
+	fmt.Println(b,c)
 }
