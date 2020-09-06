@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 )
 
@@ -63,7 +64,7 @@ func main() {
 		})
 
 	})
-	r.LoadHTMLFiles("33-gin/login.html", "33-gin/index.html")
+	r.LoadHTMLFiles("33-gin/login.html", "33-gin/index.html", "33-gin/upload.html")
 	//获取form参数
 	r.GET("/login", func(c *gin.Context) {
 
@@ -110,7 +111,28 @@ func main() {
 				"error": err.Error(),
 			})
 		}
+	})
 
+	//文件上传页面
+	r.GET("/upload", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "upload.html", nil)
+	})
+	//文件上传接口
+	r.POST("/upload", func(c *gin.Context) {
+		file, err := c.FormFile("f1")
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"message": err.Error(),
+			})
+			return
+		}
+		log.Println(file.Filename)
+		//dst := fmt.Sprintf("C:/tmp/%s", file.Filename)
+		// 上传文件到指定的目录
+		//c.SaveUploadedFile(file, dst)
+		c.JSON(http.StatusOK, gin.H{
+			"message": fmt.Sprintf("'%s' uploaded!", file.Filename),
+		})
 	})
 
 	r.Run(":9090")
