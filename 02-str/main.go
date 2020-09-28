@@ -40,4 +40,8 @@ func main() {
 	for _, r := range c3 {
 		fmt.Printf("%c", r)
 	}
+	var imgUrl = `<img src="(https://photo.zastatic.com/images/photo/[\d]/%s/[\d].jpg)">`
+	var id = "123456"
+
+
 }
