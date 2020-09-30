@@ -27,7 +27,7 @@ func TestSaver(t *testing.T) {
 	//if err != nil {
 	//
 	//}
-	//do, err := client.Get().Index("spider_user").Type("zhenai").Id(id).Do(context.Background())
+	//do, err := persistclient.Get().Index("spider_user").Type("zhenai").Id(id).Do(context.Background())
 	//if err != nil {
 	//	panic(err)
 	//}

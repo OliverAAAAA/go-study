@@ -12,17 +12,18 @@ func main() {
 
 	itemChan, err := persist.ItemSaver("spider_user")
 	if err != nil {
-		log.Panicf("start elastic error %v",err)
+		log.Panicf("start elastic error %v", err)
 	}
 	e := engine.ConcurrentEngine{
 		Scheduler: &scheduler.QueuedScheduler{},
 		//Scheduler:   &scheduler.SimpleScheduler{},
-		WorkerCount: 100,
-		ItemChan: itemChan,
+		WorkerCount:      100,
+		ItemChan:         itemChan,
+		RequestProcessor: engine.Worker,
 	}
 	e.Run(engine.MyRequest{
-		Url:        "http://www.zhenai.com/zhenghun",
-		ParserFunc: zhenai.ParseCityList,
+		Url:    "http://www.zhenai.com/zhenghun",
+		Parser: engine.NewFuncParser(zhenai.ParseCityList, "ParseCityList"),
 	})
 	//e.Run(engine.MyRequest{
 	//	Url:        "http://www.zhenai.com/zhenghun/shanghai",

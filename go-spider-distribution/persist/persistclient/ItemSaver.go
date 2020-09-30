@@ -1,21 +1,17 @@
-package persist
+package persistclient
 
 import (
 	"context"
 	"errors"
 	"github.com/olivere/elastic/v7"
 	"log"
+	"oliver/study/go-spider-distribution/config"
+	"oliver/study/go-spider-distribution/rpcsupport"
 	"oliver/study/go-spider/engine"
 )
 
-type SaveItem struct {
-	Name string
-}
-
-func ItemSaver(index string) (chan engine.Items, error) {
-	client, err := elastic.NewClient(
-		elastic.SetSniff(false),
-	)
+func ItemSaver(host string) (chan engine.Items, error) {
+	client, err := rpcsupport.NewClient(host)
 	if err != nil {
 		return nil, err
 	}
@@ -28,17 +24,21 @@ func ItemSaver(index string) (chan engine.Items, error) {
 			log.Printf("Got item : %v ,count %d \n", item, itemCount)
 			itemCount++
 
-			err := Save(item, client,index)
-			if err != nil {
-				log.Printf("save error item %v err %v\n", item, err)
+			result := ""
+			//Call rpc save
+			client.Call(config.ItemSaverRpc, item, &result)
+			//err := Save(item, persistclient,index)
+
+			if err != nil || result != "ok" {
+				log.Printf("result : %s ,err : %v", result, err)
 			}
 
 		}
 	}()
-	return out,nil
+	return out, nil
 }
 
-func Save(item engine.Items, client *elastic.Client,index string) (err error) {
+func Save(item engine.Items, client *elastic.Client, index string) (err error) {
 
 	if err != nil {
 		return err

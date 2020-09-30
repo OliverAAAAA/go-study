@@ -19,10 +19,7 @@ func ParseCityList(contents []byte,url string) engine.ParseResult {
 		//url
 		result.Requests = append(result.Requests, engine.MyRequest{
 			Url:        string(m[1]),
-			ParserFunc: func(c []byte,url string) engine.ParseResult {
-				//闭包
-				return ParseCity(c, string(m[1]))
-			},
+			Parser: engine.NewFuncParser(ParseCity,"ParseCity"),
 		})
 	}
 

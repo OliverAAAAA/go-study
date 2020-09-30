@@ -53,7 +53,7 @@ func (h SearchResultHandler) ServeHTTP(w http.ResponseWriter, req *http.Request)
 func (h SearchResultHandler) getSearchResult(q string,from int)(model.SearchResult,error){
 	var result model.SearchResult
 	result.Query = q
-	//resp, err := h.client.Search("spider_user").Query(elastic.NewQueryStringQuery(q)).From(from).Do(context.Background())
+	//resp, err := h.persistclient.Search("spider_user").Query(elastic.NewQueryStringQuery(q)).From(from).Do(context.Background())
 	var resp *elastic.SearchResult
 	var err error
 	if q !="" {

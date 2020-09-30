@@ -24,7 +24,7 @@ func process(conn net.Conn) {
 
 func main() {
 	listen, err := net.Listen("tcp", "127.0.0.1:20000")
-	fmt.Println("server has been started...")
+	fmt.Println("persistserver has been started...")
 	if err != nil {
 		fmt.Printf("listen error,err%v\n", err)
 		return

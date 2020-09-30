@@ -18,7 +18,7 @@ func (e SimpleEngine) Run(seeds ...MyRequest) {
 		//使用第一个req
 		req := myRequest[0]
 		myRequest = myRequest[1:]
-		parseResult, err := worker(req)
+		parseResult, err := Worker(req)
 		if err != nil {
 			continue
 		}

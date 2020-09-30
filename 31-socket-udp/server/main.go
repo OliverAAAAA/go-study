@@ -10,7 +10,7 @@ func main() {
 		IP:   net.IPv4(127, 0, 0, 1),
 		Port: 30000,
 	})
-	fmt.Println("udp server has been started...")
+	fmt.Println("udp persistserver has been started...")
 	if err != nil {
 		fmt.Printf("listen error,err%v\n", err)
 		return

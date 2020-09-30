@@ -5,7 +5,7 @@ import (
 	"oliver/study/go-spider/fetcher"
 )
 
-func worker(req MyRequest) (ParseResult, error) {
+func Worker(req MyRequest) (ParseResult, error) {
 	log.Printf("Fetching %s\n", req.Url)
 	//请求req的url
 	body, err := fetcher.Fetch(req.Url)
@@ -14,5 +14,5 @@ func worker(req MyRequest) (ParseResult, error) {
 		return ParseResult{}, err
 	}
 	//解析req的html
-	return req.ParserFunc(body, req.Url), nil
+	return req.Parser.Parse(body, req.Url), nil
 }
